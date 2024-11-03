@@ -1,5 +1,5 @@
 import random
-from Helper.helper import Uno
+from Helper.Shuffle import Uno
 from Libs.logger import uno_logger
 
 

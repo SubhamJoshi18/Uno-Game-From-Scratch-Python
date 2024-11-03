@@ -4,7 +4,13 @@ import random
 from Exceptions.index import UnoShuffleException
 from Libs.logger import uno_logger
 from Constant.index import max_uno_card
-from Utils.utils import random_90_card
+from Utils.utils import random_90_card, count_players
+from Helper.Game import GameUno
+from queue import Queue
+
+game_finished_queue = Queue()
+
+
 
 class UnoAbs(ABC):
     @abstractmethod
@@ -26,15 +32,23 @@ class Uno(UnoAbs,ABC):
             if str(self.no_of_player).startswith('0') or self.no_of_player < 2:
                 raise UnoShuffleException('No of Player is not enough to start the game')
             distribute_card ,card_evenly  = self.__calculate_deck()
-            print('This is the random 90 card in the Deck is {}'.format(distribute_card))
-            print('Card Evenly',card_evenly)
+            print('This is the random {} card in the Deck'.format(distribute_card))
+            count_player = count_players(card_evenly)
             randomized_cards = random_90_card(num_range=distribute_card)
-            print(randomized_cards)
+
 
         except (UnoShuffleException,Exception) as shuffle_error:
             uno_logger.error(f'Error while Shuffling An : {shuffle_error}')
 
+        else:
+            game_uno_instance = GameUno()
+            game_uno_instance.pursue_game(no_of_player=count_player,left_card=randomized_cards,distribute_card_with_player=card_evenly)
 
+        finally:
+            while not game_finished_queue.empty():
+                print('Game is Going on.....')
+            else:
+                print('Game is Finished')
 
     def __distribute_evenly_card(self,no_of_player):
         player_list = {

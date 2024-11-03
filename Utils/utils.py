@@ -22,3 +22,9 @@ def random_90_card(num_range):
         else:
             result.append(x)
     return result
+
+def count_players(player_list:dict) -> int :
+    players = []
+    for item in player_list.keys():
+        players.append(item)
+    return len(players)
