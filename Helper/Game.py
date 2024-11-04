@@ -27,7 +27,7 @@ class GameUno(GameUnoAbs,ABC):
                 if iter(player_card) and isinstance(player_card,list):
                     players.append(player_card)
 
-            game_rule_with_cards(players_card=[item for sublist in players for item in sublist])
+            game_rule_with_cards(players_card=[item for sublist in players for item in sublist],left_cards=left_card)
 
         except (PursueGameException,Exception) as pursue_game:
             uno_logger.error(f'Error in Pursuing game  : {pursue_game}')
