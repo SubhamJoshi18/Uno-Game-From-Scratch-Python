@@ -1,6 +1,8 @@
 from abc import ABC,abstractmethod
 from Exceptions.index import PursueGameException
 from Libs.logger import uno_logger
+from Rules.GameRule import game_rule_with_cards
+
 
 class GameUnoAbs(ABC):
 
@@ -19,9 +21,13 @@ class GameUno(GameUnoAbs,ABC):
 
     def pursue_game(self,no_of_player,left_card,distribute_card_with_player):
         try:
+            players = []
             print('This is a no of player',no_of_player)
             for  player , player_card in distribute_card_with_player.items():
-                print(f'{player} : {player_card}')
+                if iter(player_card) and isinstance(player_card,list):
+                    players.append(player_card)
+
+            game_rule_with_cards(players_card=[item for sublist in players for item in sublist])
 
         except (PursueGameException,Exception) as pursue_game:
             uno_logger.error(f'Error in Pursuing game  : {pursue_game}')

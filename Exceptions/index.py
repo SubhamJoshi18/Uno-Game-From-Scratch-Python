@@ -6,3 +6,7 @@ class UnoShuffleException(Exception):
 
 class PursueGameException(Exception):
     pass
+
+
+class GameRuleException(Exception):
+    pass

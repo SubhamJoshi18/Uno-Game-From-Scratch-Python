@@ -51,15 +51,13 @@ class Uno(UnoAbs,ABC):
                 print('Game is Finished')
 
     def __distribute_evenly_card(self,no_of_player):
-        player_list = {
-
-        }
-        for index , players in enumerate(range(no_of_player)):
-            player_list[f'Player {index + 1}'] = [x for x in random.choices([x for x in range(0,15)],k=14)]
+        colors = ['Blue','Yellow','Green','Red']
+        player_list = {}
+        for index in range(no_of_player):
+            cards = [[random.randint(0,10), random.choice(colors)] for _ in range(9)]
+            player_list[f'Player {index + 1}'] = [cards]
 
         return player_list
-
-
 
     def __calculate_deck(self):
         distribute_card = math.ceil(math.fabs(max_uno_card - 9 * int(self.no_of_player)))
