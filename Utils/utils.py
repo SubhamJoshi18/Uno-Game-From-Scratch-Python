@@ -14,14 +14,9 @@ def randomize_nine_card(deck:List[int]) -> List[int]:
 
 
 def random_90_card(num_range):
-    result = []
-    for x in range(num_range):
-        if x > 14:
-            new_num = random.randint(0,14)
-            result.append(new_num)
-        else:
-            result.append(x)
-    return result
+    colors = ['Red','Yellow','Blue','Green']
+    cards = [[random.randint(0,14),random.choice(colors)] for _ in range(num_range)]
+    return cards
 
 def count_players(player_list:dict) -> int :
     players = []
